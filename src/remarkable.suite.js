@@ -29,8 +29,11 @@ RemarkableSuite.prototype.parse = function () {
     this.tokens = tokens;
 };
 
-
 RemarkableSuite.prototype.render = function () {
     const html = this.remarkable.render2(this.tokens);
     this.html = html;
+};
+
+RemarkableSuite.prototype.html = function () {
+    this.remarkable.render(this.md);
 };

@@ -1,6 +1,6 @@
 function loadMarkdonw() {
     return new Promise(function (resolve, reject) {
-        fetch('test.md')
+        fetch('src/test.md')
             .then((res)=>{
                 return res.text()
             })
@@ -79,8 +79,43 @@ function loadMarkdonw() {
         })
         .on('complete', function() {
             console.log('Fastest is ' + this.filter('fastest').map('name'));
+
+            setTimeout(()=>{
+                testHTML();
+            },1000);
         })
         .run({ 'async': true });
+
+    }
+
+    function testHTML() {
+
+        var suite = new Benchmark.Suite('markdown-html',{
+            onStart: function onStart() {
+                console.log('testHTML onStart');
+            },
+            onComplete: function onComplete() {
+                console.log('testHTML onComplete');
+            }
+        });
+
+        suite.add('marked#html', function() {
+            markedSuite.html();
+        });
+        suite.add('remarkable#html', function() {
+            remarkableSuite.html();
+        });
+        suite.add('markdownit#render', function() {
+            markdownItSuite.html();
+        });
+
+        suite.on('cycle', function(event) {
+            console.log(String(event.target));
+        })
+            .on('complete', function() {
+                console.log('Fastest is ' + this.filter('fastest').map('name'));
+            })
+            .run({ 'async': true });
 
     }
 

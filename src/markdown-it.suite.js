@@ -18,3 +18,7 @@ MarkdownItSuite.prototype.render = function () {
     const html = this.markdown.render2(this.tokens);
     this.html = html;
 };
+
+MarkdownItSuite.prototype.html = function () {
+    this.markdown.render(this.md);
+};

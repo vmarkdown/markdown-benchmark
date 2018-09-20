@@ -12,3 +12,7 @@ MarkedSuite.prototype.render = function () {
     const html = marked.parser(this.tokens);
     this.html = html;
 };
+
+MarkedSuite.prototype.html = function () {
+    marked(this.md);
+};
